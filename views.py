@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("Hello from demo_plugin!")
+    return render(request, "demo_p"
+                           "lugin/index.html")
