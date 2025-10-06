@@ -3,5 +3,13 @@ app_label: demo_plugin
 version: 0.1.0
 django_urls: plugins.demo_plugin.urls   # optional (plugin bez URL je ok)
 url_prefix: demo                        # default = app_label
-required_secrets: []                    # později UI gate
-dependencies: []                        # informativní (pip)
+required_secrets:
+  - name: jira_base_url
+    label: "Jira URL"
+    type: shared
+    help_text: "Např. https://jira.example.com"
+    validator_regex: "^https?://.+$"
+  - name: jira_api_token
+    label: "Jira API token"
+    type: personal
+    help_text: "Tvůj osobní token pro auditovatelné akce"
