@@ -1,0 +1,36 @@
+source: "demo_plugin:DemoPlugin@0.1.0"
+environment: "dev"
+labels_allowlist:
+  - feature
+  - endpoint
+  - region
+sampling:
+  DEBUG: 0.10
+  INFO: 0.50
+  WARN: 1.00
+  ERROR: 1.00
+  CRITICAL: 1.00
+events:
+  - name: "demo.hello_shown"
+    description: "Zobrazení demo/hello stránky"
+  - name: "demo.button_clicked"
+    description: "Klik na tlačítko v demu"
+metrics:
+  - name: "demo_requests_total"
+    type: "counter"
+    labels: ["endpoint","region"]
+  - name: "demo_request_latency_ms"
+    type: "histogram"
+    labels: ["endpoint"]
+dashboards:
+  - id: "demo_requests_by_endpoint"
+    title: "Počet požadavků podle endpointu (denně)"
+    source: "metric:demo_requests_total"
+    interval: "1h"
+    aggregation: "sum"
+    group_by: ["labels.endpoint"]
+  - id: "demo_error_rate"
+    title: "Error rate (%)"
+    source: "log:level=ERROR vs INFO+WARN"
+    interval: "5m"
+    formula: "(errors / total) * 100"
