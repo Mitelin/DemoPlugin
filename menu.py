@@ -9,4 +9,3 @@ def get_menu():
             # {"title": "Další stránka", "url": reverse("demo_plugin_something")},
         ],
     }
-}
